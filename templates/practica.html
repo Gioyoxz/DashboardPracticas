@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8">
+    <title>Panel Específico</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel="stylesheet" href="{% static "AplicacionPracticas1/dist/./style.css"%}">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" />
+    <link href="{% static "AplicacionPracticas1/fontawesome/css/all.min.css" %}" rel="stylesheet" />
+    <link href="{% static "AplicacionPracticas1/css/templatemo-comparto.css" %}" rel="stylesheet" />
+    <link href="{% static "AplicacionPracticas1/css/sidebars.css" %}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+
+    <title>Panel Específico</title>
+    <script src="https://kit.fontawesome.com/1ea27fe485.js" crossorigin="anonymous"></script>
+    <style> .tm-bg-color-4 { background-color: #23415b; }
+            .tm-text-white {text-align: center; font-size: 28px;}
+    	    body{margin-top:20px;}
+
+.container-fluid {
+    zoom: 94%;
+    width: 100%;
+    margin: 0 auto; /
+
+}
+
+.steps {
+    width: 100%;
+    margin: 0 auto;
+}
+
+
+.steps .step {
+    display: block;
+    width: 100%;
+    margin-bottom: 1px;
+    text-align: center
+}
+
+.steps .step .step-icon-wrap {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 55px;
+    text-align: center
+}
+
+.steps .step .step-icon-wrap::before,
+.steps .step .step-icon-wrap::after {
+    display: block;
+    position: absolute;
+    top: 58%;
+    width: 50%;
+    height: 4px;
+    margin-top: -1px;
+    background-color: #e1e7ec;
+    content: '';
+    z-index: 1
+}
+
+.steps .step .step-icon-wrap::before {
+    left: 0
+}
+
+.steps .step .step-icon-wrap::after {
+    right: 0
+}
+
+.steps .step .step-icon {
+    display: inline-block;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border: 1px solid #e1e7ec;
+    border-radius: 50%;
+    background-color: #f5f5f5;
+    color: #374250;
+    font-size: 35px;
+    line-height: 60px;
+    z-index: 5
+}
+
+.steps .step .step-title {
+    margin-top: 16px;
+    margin-bottom: 0;
+    color: #606975;
+    font-size: 14px;
+    font-weight: 500
+}
+
+.steps .step:first-child .step-icon-wrap::before {
+    display: none
+}
+
+.steps .step:last-child .step-icon-wrap::after {
+    display: none
+}
+
+.steps .step.completed .step-icon-wrap::before,
+.steps .step.completed .step-icon-wrap::after {
+    background-color: #23415B
+}
+
+.steps .step.completed .step-icon {
+    border-color: #23415B;
+    background-color: #23415B;
+    color: #fff
+}
+
+@media (max-width: 576px) {
+    .flex-sm-nowrap .step .step-icon-wrap::before,
+    .flex-sm-nowrap .step .step-icon-wrap::after {
+        display: none
+    }
+}
+
+@media (max-width: 768px) {
+    .flex-md-nowrap .step .step-icon-wrap::before,
+    .flex-md-nowrap .step .step-icon-wrap::after {
+        display: none
+    }
+}
+
+@media (max-width: 991px) {
+    .flex-lg-nowrap .step .step-icon-wrap::before,
+    .flex-lg-nowrap .step .step-icon-wrap::after {
+        display: none
+    }
+}
+
+@media (max-width: 1200px) {
+    .flex-xl-nowrap .step .step-icon-wrap::before,
+    .flex-xl-nowrap .step .step-icon-wrap::after {
+        display: none
+    }
+}
+
+.bg-faded, .bg-secondary {
+    background-color: #f5f5f5 !important;
+}
+
+.help-text {
+    color: #6c757d;
+    font-size: 13px;
+    margin-top: 0em;
+    margin-bottom: 0em;/* Ajusta el valor según sea necesario */
+}
+
+.mb-3 {margin-bottom: 0em;}
+
+.icon-button {
+    display: inline-block;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border: 10px solid black;
+    border-radius: 50%;
+    background-color: white;
+    color: #7F9BC0;
+    font-size: 52px;
+    line-height: 60px;
+    z-index: 15
+}
+
+.bg-custom-azul {
+    background-color: #23415B;
+}
+
+.bg-custom-celeste {
+    background-color: #80A2BF;
+}
+
+.bg-custom-rojo {
+    background-color: #BF5E26;
+}
+
+.contenedor{
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+.texto-encima{
+    position: relative;
+    top: -92px;
+    font-style: italic;
+    font-size: 30px;
+}
+
+.linea-horizontal {
+    border-bottom: 1px solid black;
+    width: 100%;
+}
+
+.boxcontenedor {
+  display: inline-block;
+  width: 100%; /* Ancho del contenedor al 100% del contenedor padre */
+  border: 1px solid;
+  padding: 5px;
+    border-radius: 10px;
+    border-color: #d7d7dc;
+    background-color: #fafafa;
+
+}
+
+/* Mantener margen inferior en los campos de entrada */
+
+    </style>
+
+<!--
+
+Comparto TemplateMo
+
+https://templatemo.com/tm-544-comparto
+
+-->
+</head>
+
+<body>
+<div class="sidebar">
+    <div class="logo-details">
+        <div class="logo_name">Prácticas ECIEM</div>
+        <i class='bx bx-menu' id="btn" ></i>
+    </div>
+    <ul class="nav-list">
+     <li>
+       <a href="{% url "index" %}">
+         <i class='bx bx-pie-chart-alt-2'></i>
+         <span class="links_name">Panel General</span>
+       </a>
+       <span class="tooltip">Panel General</span>
+     </li>
+      <li>
+        <a href="#" style="background-color: white">
+          <i class='bx bx-grid-alt' style="color: #333333"></i>
+          <span class="links_name" style="color: #333333">Panel Específico</span>
+        </a>
+         <span class="tooltip">Panel Específico</span>
+      </li>
+     <li>
+       <a href="#">
+         <i class='bx bx-cog' ></i>
+         <span class="links_name">Configuración</span>
+       </a>
+       <span class="tooltip">Configuración</span>
+     </li>
+     <li class="profile">
+         <div class="profile-details">
+           <i class='bx bx-user' ></i>
+           <div class="name_job">
+             <div class="name">Paola Maldonado</div>
+             <div class="job">Secretaria</div>
+           </div>
+         </div>
+         <i class='bx bx-log-out' id="log_out" ></i>
+     </li>
+    </ul>
+  </div>
+  <section class="home-section">
+    <!-- Back to top button -->
+    <div class="container-fluid">
+        <div class="container padding-bottom-3x mb-1">
+                <div class="card mb-3" style="border: none;">
+                  <div class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-1 px-2 bg-custom-azul rounded-5">
+                  {% for p in practica %}
+                    <div class="w-100 text-center py-1 px-2 text-white"><span class="text-medium"><b>Fecha Inicio:</b> </span>{{ p.fechaInicio }}</div>
+                    <div class="w-100 text-center py-1 px-2 text-white"><span class="tm-mb-2 text-center" style="font-size: 20px; margin-bottom: 15px;"><b>Práctica</b></span>
+                       <button type= "button" class="btn-with-icon bg-custom-azul" data-bs-toggle="modal" data-bs-target="#editPractica" style="border: none; outline: none; box-shadow: none">
+                          <i class="fa-regular fa-calendar text-white bg-custom-azul"></i>
+                       </button>
+                    </div>
+                    <div class="w-100 text-center py-1 px-2 text-white"><span class="text-medium"><b>Fecha Fin:</b> </span>{{ p.fechaFin }}</div>
+                  {% endfor %}
+                  </div>
+                  <div class="card-body">
+                  {% for p in practica %}
+                    <div class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
+                      {% if p.fasepractica_set.all|length >= 1 %}
+                         <div class="step completed">
+                      {% else %}
+                         <div class="step">
+                      {% endif %}
+                            <div class="step-icon-wrap">
+                              <button type= "button" class="btn-with-icon" data-bs-toggle="modal" data-bs-target="#editFaseInscripcion" style="border: none; outline: none; box-shadow: none; background: transparent;">
+                                <div class="step-icon"><i class="fa-solid fa-clipboard-list fa-sm"></i></div>
+                              </button>
+                            </div>
+                            <h4 class="step-title">Inscripción</h4>
+                          </div>
+                     {% if p.fasepractica_set.all|length >= 2 %}
+                         <div class="step completed">
+                      {% else %}
+                         <div class="step">
+                      {% endif %}
+                            <div class="step-icon-wrap">
+                              <div class="step-icon" ><i class="fa-solid fa-briefcase fa-sm"></i></div>
+                            </div>
+                            <h4 class="step-title">Inicio</h4>
+                          </div>
+                      {% if p.fasepractica_set.all|length >= 3 %}
+                         <div class="step completed">
+                      {% else %}
+                         <div class="step">
+                      {% endif %}
+                            <div class="step-icon-wrap">
+                              <div class="step-icon"><i class="fa-solid fa-flag fa-sm"></i></div>
+                            </div>
+                            <h4 class="step-title">Termino</h4>
+                          </div>
+                      {% if p.fasepractica_set.all|length >= 4 %}
+                         <div class="step completed">
+                      {% else %}
+                         <div class="step">
+                      {% endif %}
+                            <div class="step-icon-wrap">
+                              <div class="step-icon"><i class="fa-solid fa-newspaper"></i></div>
+                            </div>
+                            <h4 class="step-title">Informe</h4>
+                          </div>
+                      {% if p.fasepractica_set.all|length >= 5 %}
+                         <div class="step completed">
+                      {% else %}
+                         <div class="step">
+                      {% endif %}
+                            <div class="step-icon-wrap">
+                              <div class="step-icon"><i class="fa-solid fa-eye"></i></div>
+                            </div>
+                            <h4 class="step-title">Evaluación</h4>
+                          </div>
+                        </div>
+                  {% endfor %}
+                  </div>
+                </div>
+        </div>
+        <section class="tm-mb-1 tm-row tm-services-row" id="services">
+            <div class="tm-section-2-l">
+                {% for p in practica %}
+                    <article class="tm-bg-color-6 tm-box-pad tm-mb-1" style="width: 430px; height: 190px; padding: 15px;">
+                        <h2 class="tm-mb-2 text-center" style="font-size: 24px; margin-bottom: 15px;">Estudiante
+                            <button type= "button" class="btn-with-icon" data-bs-toggle="modal" data-bs-target="#editEstudiante" style="border: none; outline: none; box-shadow: none">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                        </h2>
+                        <p>
+                            <b>Rut:</b> {{ p.rut_persona.rut_persona }}<br>
+                            <b>Nombre:</b> {{ p.rut_persona.nombre_persona }}<br>
+                            <b>Correo:</b> {{ p.rut_persona.correo_persona }}<br>
+                            <b>Teléfono:</b> {{ p.rut_persona.telefono_persona }}</p>
+                    </article>
+                    <article class="tm-bg-color-6 tm-box-pad tm-mb-1" style="width: 430px; height: 220px; padding: 15px;">
+                        <h2 class="tm-mb-2 text-center" style="font-size: 24px; margin-bottom: 15px;">Empresa
+                            <button type= "button" class="btn-with-icon" data-bs-toggle="modal" data-bs-target="#editEmpresa" style="border: none; outline: none; box-shadow: none">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                        </h2>
+                {% endfor %}
+                    {% for p in practica %}
+                        {% if p.empresapractica_set.all %}
+                            {% for s in p.empresapractica_set.all %}
+                                <p>
+                                    <b>Rut:</b> {{ s.rut_empresa.rut_empresa}}<br>
+                                    <b>Nombre:</b> {{ s.rut_empresa.nombre_empresa }}<br>
+                                    <b>Supervisor:</b> {{ s.nombre_supervisor }}<br>
+                                    <b>Correo:</b> {{ s.correo_supervisor }}<br>
+                                    <b>Teléfono:</b> {{ s.telefono_supervisor }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                    </article>
+            </div>
+            <div class="tm-section-2-l" style="display: flex; align-items: center; justify-content: center; padding-left: 10px;">
+                <figure>
+                {% for p in practica %}
+                    {% with last_relacion=p.fasepractica_set.last %}
+                        {% if last_relacion %}
+                            <div class="contenedor">
+                                {% if last_relacion.estado == "1" %}
+                                    <img src="{% static "AplicacionPracticas1/img/IMAGENROJO.png" %}" />
+                                {% elif last_relacion.estado == "2" %}
+                                    <img src="{% static "AplicacionPracticas1/img/IMAGENAMARILLO.png" %}" />
+                                {% elif last_relacion.estado == "3" %}
+                                    <img src="{% static "AplicacionPracticas1/img/IMAGENVERDE.png" %}" />
+                                {% endif %}
+                                <div class="texto-encima" style="color: #666666"><b>{{ last_relacion.conteo }} días</b></div>
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                {% endfor %}
+                </figure>
+            </div>
+            <div class="tm-section-2-r" style="display: flex; align-items: center; justify-content: center;">
+                {% for p in practica %}
+                    <article class="tm-bg-color-0 tm-box-pad tm-mb-1" style="width: 430px; height: 400px; padding: 20px; border-radius: 35px; text-align: center; border: 6px solid #1d1b31;">
+                        <br>
+                        {% if cantidad_fase != 5 %}
+                            <h2 class="tm-mb-2 text-center" style="font-size: 24px; margin-bottom: 15px;">Documentación</h2>
+                        {% endif %}
+                        {% if cantidad_fase == 5 %}
+                            <h2 class="tm-mb-2 text-center" style="font-size: 24px; margin-bottom: 15px;">Resultado</h2>
+                        {% endif %}
+                        <br><br><br>
+                        <button type= "button" data-bs-toggle="modal" data-bs-target="#editArchivo" class="icon-button" style="border: none; outline: none; box-shadow: none">
+                            <i class="fa-solid fa-file-arrow-up"></i>
+                        </button>
+                        {% for p in practica %}
+                            {% with last_relacion=p.fasepractica_set.last %}
+                                {% if last_relacion %}
+                                    {% with doc=last_relacion.archivo_set.all %}
+                                        {% if cantidad_fase != 5 %}
+                                            {% if not None in doc.archivo %}
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <b>Archivos guardados:
+                                                <br> {{ last_relacion.guardados }} / {{ doc.count }}
+                                                </b>
+                                            {% else %}
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>Ningún archivo guardado...
+                                                    <br>
+                                            {% endif %}
+                                        {% endif %}
+                                        {% if cantidad_fase == 5 %}
+                                            {% if not None in doc.archivo %}
+                                                <br>
+                                                <br>
+                                                <br>
+                                                <b>
+                                                <br> {{ practica_instance.get_condicion_display }}
+                                                </b>
+                                            {% else %}
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <br>Ningún archivo guardado...
+                                                    <br>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endwith%}
+                            {% endif %}
+                        {% endwith %}
+                    {% endfor %}
+                    </article>
+                {% endfor %}
+            </div>
+        </section> </div></div></div></div></div></div>
+   </section>
+</div>
+        <div class="modal fade" id="editPractica" tabindex="-1" aria-labelledby="editPracticaLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header text-center">
+                    <h1 class="modal-title fs-5 w-100" style="text-align: center"  id="editPracticaLabel">Practica</h1>
+                  </div>
+                  <div class="modal-body" style="text-align: right">
+                      <form method="post" enctype="multipart/form-data">
+                          {% csrf_token %}
+                            {% for field in form_practica %}
+                                <div class="mb-3">
+                                    {% if field.help_text %}
+                                        <p class="help-text" style="margin-top: -1.1em">{{ field.help_text }}</p>
+                                    {% else %}
+                                        <p class="help-text" style="margin-top: 1.2em">{{ field.help_text }}</p>
+                                    {% endif %}
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                </div>
+                            {% endfor %}
+                          <div class="modal-footer" >
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                              <button type="submit" class="btn btn-primary">Guardar</button>
+                          </div>
+                      </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="modal fade" id="editFaseInscripcion" tabindex="-1" aria-labelledby="editFaseInscripcionLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header text-center">
+                    <h1 class="modal-title fs-5 w-100" style="text-align: center"  id="editFaseInscripcionLabel">Archivos de Inscripción</h1>
+                  </div>
+                  <div class="modal-body">
+                      <p style="text-align: justify;">Formulario de Inscripción<br>Plan de Trabajo<br>Carta de Aceptación<br>Carta de Compromiso</p>
+                      <div class="modal-footer" >
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="modal fade" id="editEstudiante" tabindex="-1" aria-labelledby="editEstudianteLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header text-center">
+                    <h1 class="modal-title fs-5 w-100" style="text-align: center"  id="editEstudianteLabel">Estudiante</h1>
+                  </div>
+                  <div class="modal-body" style="text-align: right">
+                      <form method="post" enctype="multipart/form-data">
+                          {% csrf_token %}
+                            {% for field in form_estudiante %}
+                                <div class="mb-3">
+                                    {% if field.help_text %}
+                                        <p class="help-text" style="margin-top: -1.1em">{{ field.help_text }}</p>
+                                    {% else %}
+                                        <p class="help-text" style="margin-top: 1.2em">{{ field.help_text }}</p>
+                                    {% endif %}
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                </div>
+                            {% endfor %}
+                          <div class="modal-footer" >
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                              <button type="submit" class="btn btn-primary">Guardar</button>
+                          </div>
+                      </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="modal fade" id="editEmpresa" tabindex="-1" aria-labelledby="editEmpresaLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header text-center">
+                    <h1 class="modal-title fs-5 w-100" id="editEmpresaLabel">Empresa | Supervisor</h1>
+                  </div>
+                  <div class="modal-body" style="text-align: right">
+                      <form method="post" enctype="multipart/form-data">
+                          {% csrf_token %}
+                            {% for field in form_empresa %}
+                                <div class="mb-3">
+                                    {% if field.help_text %}
+                                        <p class="help-text" style="margin-top: -1.1em">{{ field.help_text }}</p>
+                                    {% else %}
+                                        <p class="help-text" style="margin-top: 1.2em">{{ field.help_text }}</p>
+                                    {% endif %}
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                    {{ field }}
+                            {% endfor %}
+                            {% for field in form_supervisor %}
+                                    {% if field.help_text %}
+                                        <p class="help-text" style="margin-top: -1.1em">{{ field.help_text }}</p>
+                                    {% else %}
+                                        <p class="help-text" style="margin-top: 1.2em">{{ field.help_text }}</p>
+                                    {% endif %}
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                </div>
+                            {% endfor %}
+                          <div class="modal-footer" >
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                              <button type="submit" class="btn btn-primary">Guardar</button>
+                          </div>
+                      </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="modal fade" id="editArchivo" tabindex="-1" aria-labelledby="editArchivoLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header text-center">
+                        {% if cantidad_fase != 5 %}
+                            <h1 class="modal-title fs-5 w-100" style="text-align: center"  id="editArchivoLabel">Archivos</h1>
+                        {% endif %}
+                        {% if cantidad_fase == 5 %}
+                            <h1 class="modal-title fs-5 w-100" style="text-align: center"  id="editArchivoLabel">Finalizar Práctica</h1>
+                        {% endif %}
+                  </div>
+                  <div class="modal-body" style="text-align: center">
+                  {% if archivos_instances %}
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form_archivo.management_form }}
+                        {% for form in form_archivo %}
+                            <div class="boxcontenedor">
+                            <b>{{ form.instance.documento }}</b>
+                            <br>
+                                {{ form }}
+                            <br>
+                            </div>
+                        {% endfor %}
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                  {% endif %}
+                  {% if cantidad_fase == 5 %}
+                      <p>Resultado del informe:</p>
+                  <div class="btn-group" role="group" style="padding: 20px; padding-bottom: 50px; padding-top: 30px" aria-label="Cambiar Condición">
+                    <form action="{% url 'cambiar_condicion' practica_id '4' %}" style="padding-right: 20px" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Rechazado</button>
+                    </form>
+                      <p>o</p>
+                      <form action="{% url 'cambiar_condicion' practica_id '3' %}" style="padding-left: 20px" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Aprobado</button>
+                    </form>
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+        </div>
+        <script>
+  let sidebar = document.querySelector(".sidebar");
+  let closeBtn = document.querySelector("#btn");
+  let searchBtn = document.querySelector(".bx-search");
+  closeBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("open");
+    menuBtnChange();//calling the function(optional)
+  });
+  searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
+    sidebar.classList.toggle("open");
+    menuBtnChange(); //calling the function(optional)
+  });
+  // following are the code to change sidebar button(optional)
+  function menuBtnChange() {
+   if(sidebar.classList.contains("open")){
+     closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
+   }else {
+     closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
+   }
+  }
+  </script>
+</body>
+</html>

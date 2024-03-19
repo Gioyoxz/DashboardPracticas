@@ -1,0 +1,197 @@
+.tm-bg-color-4 { background-color: #23415b; }
+            .tm-text-white {text-align: center; font-size: 28px;}
+    	    body{margin-top:20px;}
+
+
+
+.steps .step {
+    display: block;
+    width: 100%;
+    margin-bottom: 1px;
+    text-align: center
+}
+
+.steps .step .step-icon-wrap {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 55px;
+    text-align: center
+}
+
+.steps .step .step-icon-wrap::before,
+.steps .step .step-icon-wrap::after {
+    display: block;
+    position: absolute;
+    top: 58%;
+    width: 50%;
+    height: 4px;
+    margin-top: -1px;
+    background-color: #e1e7ec;
+    content: '';
+    z-index: 1
+}
+
+.steps .step .step-icon-wrap::before {
+    left: 0
+}
+
+.steps .step .step-icon-wrap::after {
+    right: 0
+}
+
+.steps .step .step-icon {
+    display: inline-block;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border: 1px solid #e1e7ec;
+    border-radius: 50%;
+    background-color: #f5f5f5;
+    color: #374250;
+    font-size: 35px;
+    line-height: 60px;
+    z-index: 5
+}
+
+.steps .step .step-title {
+    margin-top: 16px;
+    margin-bottom: 0;
+    color: #606975;
+    font-size: 14px;
+    font-weight: 500
+}
+
+.steps .step:first-child .step-icon-wrap::before {
+    display: none
+}
+
+.steps .step:last-child .step-icon-wrap::after {
+    display: none
+}
+
+.steps .step.completed .step-icon-wrap::before,
+.steps .step.completed .step-icon-wrap::after {
+    background-color: #23415B
+}
+
+.steps .step.completed .step-icon {
+    border-color: #23415B;
+    background-color: #23415B;
+    color: #fff
+}
+
+@media (max-width: 576px) {
+    .flex-sm-nowrap .step .step-icon-wrap::before,
+    .flex-sm-nowrap .step .step-icon-wrap::after {
+        display: none
+    }
+}
+
+@media (max-width: 768px) {
+    .flex-md-nowrap .step .step-icon-wrap::before,
+    .flex-md-nowrap .step .step-icon-wrap::after {
+        display: none
+    }
+}
+
+@media (max-width: 991px) {
+    .flex-lg-nowrap .step .step-icon-wrap::before,
+    .flex-lg-nowrap .step .step-icon-wrap::after {
+        display: none
+    }
+}
+
+@media (max-width: 1200px) {
+    .flex-xl-nowrap .step .step-icon-wrap::before,
+    .flex-xl-nowrap .step .step-icon-wrap::after {
+        display: none
+    }
+}
+
+.bg-secondary {
+    background-color: #f5f5f5;
+}
+
+.help-text {
+    color: #6c757d;
+    font-size: 13px;
+    margin-top: 0em;
+    margin-bottom: 0em;/* Ajusta el valor según sea necesario */
+}
+
+.mb-3 {margin-bottom: 0em;
+    background-color: #99CCFF}
+
+.icon-button {
+    display: inline-block;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border: 10px solid black;
+    border-radius: 50%;
+    background-color: white;
+    color: #7F9BC0;
+    font-size: 35px;
+    line-height: 60px;
+    z-index: 15;
+}
+
+.bg-custom-azul {
+    background-color: #385773;
+}
+
+.bg-custom-celeste {
+    background-color: #80A2BF;
+}
+
+.bg-custom-rojo {
+    background-color: #BF5E26;
+}
+
+.contenedor{
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+.texto-encima{
+    position: relative;
+    top: -125px;
+    font-style: italic;
+    font-size: 30px;
+}
+
+.fa-forma{
+    color: #23415b;
+    font-size: 3em;
+    padding-bottom: 5px;
+}
+
+.elemento {
+    display: inline-block;
+    margin-right: 10px; /* Ajusta el margen según tus necesidades */
+}
+
+.circuloAmarillo {
+    display: inline-block;
+    width: 20px; /* El ancho del círculo */
+    height: 20px; /* La altura del círculo (en este caso, el mismo valor que el ancho para que sea un círculo perfecto) */
+    border-radius: 50%; /* Hace que el borde tenga forma de círculo */
+    background-color: #FFAA52; /* Color de fondo del círculo (en este caso, rojo) */
+}
+
+.circuloVerde {
+    display: inline-block;
+    width: 20px; /* El ancho del círculo */
+    height: 20px; /* La altura del círculo (en este caso, el mismo valor que el ancho para que sea un círculo perfecto) */
+    border-radius: 50%; /* Hace que el borde tenga forma de círculo */
+    background-color: #00C281; /* Color de fondo del círculo (en este caso, rojo) */
+}
+
+.circuloRojo {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #FE5442;
+}

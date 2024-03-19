@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" />
+    <link href="{% static "AplicacionPracticas1/fontawesome/css/all.min.css" %}" rel="stylesheet" />
+    <link href="{% static "AplicacionPracticas1/css/templatemo-comparto.css" %}" rel="stylesheet" />
+    <link href="{% static "AplicacionPracticas1/css/EstiloGeneral.css" %}" rel="stylesheet" />
+    <link href="{% static "AplicacionPracticas1/css/sidebars.css" %}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+
+    <title>Panel General</title>
+    <style> .tm-bg-color-4 { background-color: #23415b; }
+            .tm-text-white {text-align: center; font-size: 32px}
+    </style>
+    <script src="https://kit.fontawesome.com/1ea27fe485.js" crossorigin="anonymous"></script>
+<!--
+
+Comparto TemplateMo
+
+https://templatemo.com/tm-544-comparto
+
+-->
+</head>
+
+<body>
+<div class="sidebar">
+    <div class="logo-details">
+        <div class="logo_name">Prácticas ECIEM</div>
+        <i class='bx bx-menu' id="btn" ></i>
+    </div>
+    <ul class="nav-list">
+     <li>
+       <a href="#" style="background-color: white">
+         <i class='bx bx-pie-chart-alt-2' style="color: #333333"></i>
+         <span class="links_name" style="color: #333333">Panel General</span>
+       </a>
+       <span class="tooltip">Panel General</span>
+     </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name">Panel Específico</span>
+        </a>
+         <span class="tooltip">Panel Específico</span>
+      </li>
+     <li>
+       <a href="#">
+         <i class='bx bx-cog' ></i>
+         <span class="links_name">Configuración</span>
+       </a>
+       <span class="tooltip">Configuración</span>
+     </li>
+     <li class="profile">
+         <div class="profile-details">
+           <i class='bx bx-user' ></i>
+           <div class="name_job">
+             <div class="name">Paola Maldonado</div>
+             <div class="job">Secretaria</div>
+           </div>
+         </div>
+         <i class='bx bx-log-out' id="log_out" ></i>
+     </li>
+    </ul>
+  </div>
+  <section class="home-section">
+    <div class="container-fluid">
+    <div class="row d-flex justify-content-center" style="padding-top: 5px;">
+
+        <div id="containerPie" class="col-lg-3 mx-2" style="height: 235px;"></div>
+        <div id="containerBar" class="col-lg-5 mx-2"></div>
+        <div id="containerEstados" class="col-lg-3 mx-2" style="height: 235px;"></div>
+
+    </div>
+</div>
+        <script type="application/javascript">
+            (function (H) {
+                H.seriesTypes.pie.prototype.animate = function (init) {
+                    const series = this,
+                        chart = series.chart,
+                        points = series.points,
+                        {
+                            animation
+                        } = series.options,
+                        {
+                            startAngleRad
+                        } = series;
+
+                    function fanAnimate(point, startAngleRad) {
+                        const graphic = point.graphic,
+                            args = point.shapeArgs;
+
+                        if (graphic && args) {
+
+                            graphic
+                                // Set inital animation values
+                                .attr({
+                                    start: startAngleRad,
+                                    end: startAngleRad,
+                                    opacity: 1
+                                })
+                                // Animate to the final position
+                                .animate({
+                                    start: args.start,
+                                    end: args.end
+                                }, {
+                                    duration: animation.duration / points.length
+                                }, function () {
+                                    // On complete, start animating the next point
+                                    if (points[point.index + 1]) {
+                                        fanAnimate(points[point.index + 1], args.end);
+                                    }
+                                    // On the last point, fade in the data labels, then
+                                    // apply the inner size
+                                    if (point.index === series.points.length - 1) {
+                                        series.dataLabelsGroup.animate({
+                                            opacity: 1
+                                        },
+                                        void 0,
+                                        function () {
+                                            points.forEach(point => {
+                                                point.opacity = 1;
+                                            });
+                                            series.update({
+                                                enableMouseTracking: true
+                                            }, false);
+                                            chart.update({
+                                                plotOptions: {
+                                                    pie: {
+                                                        innerSize: '40%',
+                                                        borderRadius: 8
+                                                    }
+                                                }
+                                            });
+                                        });
+                                    }
+                                });
+                        }
+                    }
+
+                    if (init) {
+                        // Hide points on init
+                        points.forEach(point => {
+                            point.opacity = 0;
+                        });
+                    } else {
+                        fanAnimate(points[0], startAngleRad);
+                    }
+                };
+            }(Highcharts));
+
+                    Highcharts.chart('containerPie', {
+            chart: {
+                type: 'pie',
+                height: '235'
+            },
+            title: {
+                text: 'Carreras',
+                align: 'center'
+            },
+            subtitle: {
+                text: '',
+                align: 'center'
+            },
+            tooltip: {
+                pointFormat: '<b>{point.percentage:.1f}%</b>'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    borderWidth: 2,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b><br>{y}',
+                        distance: 20,
+                        style: {
+                                fontSize: '14px'
+                            }
+                    }
+                }
+            },
+            credits: {
+                    enabled: false
+            },
+            series: [{
+                // Disable mouse tracking on load, enable after custom animation
+                enableMouseTracking: false,
+                animation: {
+                    duration: 400
+                },
+                colorByPoint: true,
+                data: [{
+                    name: 'IICG',
+                    color: '#80A2BF',
+                    y: {{ barra_iicg }}
+                }, {
+                    name: 'IC',
+                    color: '#BF5E26',
+                    y: {{ barra_ic }}
+                }]
+            }]
+        });
+        </script>
+        <script type="application/javascript">
+            Highcharts.chart('containerBar', {
+                chart: {
+                    type: 'column',
+                    height: 300,
+                    weight: 100
+                },
+                title: {
+                    text: 'Fases',
+                    align: 'center'
+                },
+                subtitle: {
+                    text: '',
+                    align: 'center'
+                },
+                credits: {
+                    enabled: false
+                },
+                xAxis: {
+                    categories: ['<div style="text-align:center;"><i class="fa-solid fa-clipboard-list fa-lg color-icon" style="display:block; color: #23415b; font-size: 1.8em; padding-bottom: 0.5em; padding-top: 0.2em;"></i>Inscripción</div>',
+                                '<div style="text-align:center;"><i class="fa-solid fa-briefcase fa-lg color-icon" style="display:block; color: #23415b; font-size: 1.8em; padding-bottom: 0.5em; padding-top: 0.2em;"></i>Inicio</div>',
+                                '<div style="text-align:center;"><i class="fa-solid fa-flag fa-lg color-icon" style="display:block; color: #23415b; font-size: 1.8em; padding-bottom: 0.5em; padding-top: 0.2em;"></i>Término</div>',
+                                '<div style="text-align:center;"><i class="fa-solid fa-newspaper fa-lg color-icon" style="display:block; color: #23415b; font-size: 1.8em; padding-bottom: 0.5em; padding-top: 0.2em;"></i>Informe</div>',
+                                '<div style="text-align:center;"><i class="fa-solid fa-eye fa-lg color-icon" style="display:block; color: #23415b; font-size: 1.8em; padding-bottom: 0.5em; padding-top: 0.2em;"></i>Evaluación</div>'],
+                    crosshair: true,
+                    accessibility: {
+                        description: 'Countries'
+                    },
+                    labels: {
+                        useHTML: true,
+                    }
+                },
+                yAxis: {
+                    labels: {
+                        enabled: false
+                    },
+                    min: 0,
+                    title: {
+                        text: ''
+                    }
+                },
+                tooltip: {
+                    valueSuffix: ''
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.25,
+                        borderWidth: 0,
+                    }
+                },
+                series: [
+                    {
+                        name: '',
+                        showInLegend: false,
+                        color: '#23415b',
+                        data: [{{ barra_fase1 }}, {{ barra_fase2 }}, {{ barra_fase3 }}, {{ barra_fase4 }}, {{ barra_fase5 }}],
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                fontSize: '14px'
+                            }
+                        },
+
+                    },
+                ]
+            });
+        </script>
+        <style>
+            .highcharts-navigator {
+                display: none !important;
+            }
+        </style>
+        <script type="application/javascript">
+            Highcharts.chart('containerEstados', {
+                chart: {
+                    type: 'bar',
+                    navigator: {
+                        enabled: false
+                    }
+                },
+                title: {
+                    text: 'Estados',
+                    align: 'center'
+                },
+                showInLegend: false,
+                xAxis: {
+                    categories: [''],
+                    title: {
+                        text: null
+                    },
+                    gridLineWidth: 1,
+                    lineWidth: 1
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '',
+                        align: 'high'
+                    },
+                    labels: {
+                        overflow: 'justify',
+                        enabled: false
+                    },
+                    gridLineWidth: 0
+                },
+                tooltip: {
+                    valueSuffix: ''
+                },
+                plotOptions: {
+                    bar: {
+                        borderRadius: '50%',
+                        dataLabels: {
+                            enabled: true,
+                            style: {
+                                fontSize: '14px'
+                            }
+                        },
+                        groupPadding: 0.1
+                    }
+                },
+                legend: {
+                    enabled:false,
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Vencidos',
+                    data: [{{ barra_vencido }}],
+                    color: '#FE5442'
+                }, {
+                    name: 'Pendienes',
+                    data: [{{ barra_pendiente }}],
+                    color: '#FFAA52'
+                }, {
+                    name: 'Completados',
+                    data: [{{ barra_completado }}],
+                    color: '#00C281'
+                }]
+            });
+        </script>
+        <div class="estudiante">
+                <div class="container" style="border-radius: 80px; padding-top: 8px">
+                    <table class="table" style="display: inline;">
+                        <tr>
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <th scope="col" style="color: white"><b>||</b></th>
+                                <th scope="col">
+                                    <button type= "button" class="btn-with-icon" data-bs-toggle="modal" data-bs-target="#crearPractica" style="border: none; outline: none; box-shadow: none; background-color:#f5f5f5">
+                                        <i class="fa-solid fa-folder-plus fa-2x"></i>
+                                    </button>
+                                </th>
+                                <th scope="col" style="color: white"><b>|</b></th>
+                                <th scope="col">
+                                    <button type= "button" class="btn-with-icon" data-bs-toggle="modal" data-bs-target="#importarData" style="border: none; outline: none; box-shadow: none; background-color:#f5f5f5">
+                                        <i class="fa-solid fa-database fa-2x"></i>
+                                    </button>
+                                </th>
+                                <th scope="col" style="color: white"><b>|||||||||</b></th>
+                                <th scope="col"> {{ form_buscador.as_p }}</th>
+                                <th scope="col">
+                                    <button type= "submit" style="display: inline; border: none; outline: none; box-shadow: none; background-color:white">
+                                        <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+                                    </button>
+                                </th>
+                                <th scope="col" style="color: white"><b>||||||||||||||||||||||</b></th>
+                                <th scope="col"><b>{{ form_carrera.as_p }}</b></th>
+                                <th scope="col" style="color: white"><b>|</b></th>
+                                <th scope="col"><b>{{ form_fase.as_p }}</b></th>
+                                <th scope="col" style="color: white"><b>|</b></th>
+                                <th scope="col"><b>{{ form_estado.as_p }}</b></th>
+                                <th scope="col" style="color: white"><b>|</b></th>
+                                <th scope="col">
+                                    <button type= "submit" style="border: none; outline: none; box-shadow: none; background-color:white">
+                                    <i class="fa-solid fa-filter fa-lg"></i>
+                                </button></th>
+                            </form>
+                        </tr>
+                    </table>
+                </div>
+                <div class="container" style="padding-top: 30px">
+                    <table class="table">
+                      <thead class="bg-grey" style="background-color: #f5f5f5">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">RUT</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Carrera</th>
+                            <th scope="col">Fase</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Plazo</th>
+                            <th scope="col"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for a in estudiantePractica%}
+                            <tr>
+                                <td>{{ a.id_practica }}</td>
+                                <td>{{ a.rut_persona.rut_persona }}</td>
+                                <td>{{ a.rut_persona.nombre_persona }}</td>
+                                <td>{{ a.rut_persona.usuario.carrera }}</td>
+                            {% with last_relacion=a.fasepractica_set.last %}
+                                {% if last_relacion %}
+                                <td>{{ last_relacion.fase }}</td>
+                                    {% if last_relacion.estado == "1"%}
+                                        <td><span class="circuloRojo"></span></td>
+                                    {% elif last_relacion.estado == "2"%}
+                                        <td><span class="circuloAmarillo"></span></td>
+                                    {% elif last_relacion.estado == "3"%}
+                                        <td><span class="circuloVerde"></span></td>
+                                    {% endif %}
+                                <td>{{ last_relacion.conteo }} días</td>
+                                    <td><a href="{% url "listaPractica" a.id_practica %}" class="btn btn-outline-primary">Ver</a></td>
+                                {% endif %}
+                            {% endwith %}
+                            </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                </div>
+        </div>
+    </div>
+  </section>
+    <div class="modal fade" id="crearPractica" tabindex="-1" aria-labelledby="crearPracticaLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header text-center">
+                    <h1 class="modal-title fs-5 w-100" style="text-align: center"  id="crearPracticaLabel">Nueva Practica</h1>
+                  </div>
+                  <div class="modal-body" style="text-align: right">
+                      <form method="post" enctype="multipart/form-data">
+                          {% csrf_token %}
+                            {% for field in form_crear %}
+                                <div class="mb-3" style="background-color: white">
+                                    {% if field.help_text %}
+                                        <p class="help-text" style="margin-top: -1.1em">{{ field.help_text }}</p>
+                                    {% else %}
+                                        <p class="help-text" style="margin-top: 1.2em">{{ field.help_text }}</p>
+                                    {% endif %}
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                </div>
+                            {% endfor %}
+                          <div class="modal-footer" >
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                              <button type="submit" class="btn btn-primary">Crear</button>
+                          </div>
+                      </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+  <script>
+  let sidebar = document.querySelector(".sidebar");
+  let closeBtn = document.querySelector("#btn");
+  let searchBtn = document.querySelector(".bx-search");
+  closeBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("open");
+    menuBtnChange();//calling the function(optional)
+  });
+  searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
+    sidebar.classList.toggle("open");
+    menuBtnChange(); //calling the function(optional)
+  });
+  // following are the code to change sidebar button(optional)
+  function menuBtnChange() {
+   if(sidebar.classList.contains("open")){
+     closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
+   }else {
+     closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
+   }
+  }
+  </script>
+  </section>
+</body>
+</html>
