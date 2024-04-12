@@ -90,7 +90,7 @@ class Practica(models.Model):
     fechaInicio = models.DateField('Fecha de Inicio', max_length=50, null=True, blank=False)
     fechaFin = models.DateField('Fecha de Fin', max_length=30, null=True, blank=False)
     condiciones = (("1", "Cursando"), ("2", "Cancelado"), ("3", "Aprobado"), ("4", "Rechazado"))
-    condicion = models.CharField("Estado", default='1', choices=condiciones)
+    condicion = models.CharField("Condicion", default='1', choices=condiciones)
     estados = (("1", "Pendiente"), ("2", "Completado"), ("3", "Vencido"))
     estado_practica = models.CharField("Estado", default='2', choices=estados)
     conteo_practica = models.IntegerField('Conteo', null=True)
@@ -213,7 +213,11 @@ class FasePractica(models.Model):
         except ObjectDoesNotExist:
             supervisor_instancia = None
 
-        archivo_instancias = Archivo.objects.filter(fase_practica=instancia).all()
+        try:
+            archivo_instancias = Archivo.objects.filter(fase_practica=instancia).all()
+        except ObjectDoesNotExist:
+            archivo_instancias = None
+
         cambio = True
 
 
@@ -226,7 +230,7 @@ class FasePractica(models.Model):
 
                 print("supervisor_instancia != None")
 
-                if archivo_instancias:
+                if archivo_instancias != None:
 
                     print("if archivo_instancias:")
 

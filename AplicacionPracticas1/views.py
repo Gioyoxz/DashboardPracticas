@@ -9,6 +9,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.forms import modelformset_factory
 from django.utils import timezone
 from datetime import timedelta
+from docx import Document
+from datetime import datetime
 
 from django.template.loader import render_to_string
 
@@ -233,7 +235,7 @@ class listaPractica(ListView):
         archivos_instances = Archivo.objects.filter(fase_practica=fase_practica_instance).all().order_by("documento")
         sup = None
         fase_practica_instance.cambio_estado(fase_practica_instance)
-        practica_instance.actualizar_estado()
+        practica_instance.estado_actual()
 
         try:
             supervisor_instance = EmpresaPractica.objects.get(id_practica=practica_instance)
@@ -280,6 +282,7 @@ class listaPractica(ListView):
                                                     'carrera': estudiante_instance.carrera})
 
         form_empresa = EmpresaForm(request.POST, instance=empresa_instance)
+
 
         if supervisor_instance == None:
             print("if supervisor_instance == None:")
@@ -337,6 +340,7 @@ class listaPractica(ListView):
                     print("form_supervisor.errors:", form_supervisor.errors)
 
         if form_estudiante.is_valid():
+            print('form_estudiante.saveeeeeeeeeeeeeeeeeeeeeeeeeeee()')
             form_estudiante.save()
             fase_practica_instance.cambio_estado(fase_practica_instance)
             return redirect('listaPractica', pk=practica_id)
@@ -362,56 +366,97 @@ class listaPractica(ListView):
                     a.save()
                     fase_practica_instance.contar_guardados(archivos_instances)
 
+                    print(Documento.objects.get(documento="1"))
+
+                    if a.documento == Documento.objects.get(documento="1"):
+
+                        print('if a.documento == "1":')
+
+                        doc = Document(a.archivo.path)
+                        indice_tabla = 0
+                        indice_fila = 0
+                        indice_celda = 0
+                        name_empresa = ''
+
+                        for table in doc.tables:
+                            indice_tabla += 1
+                            indice_fila = 0
+                            indice_celda = 0
+
+                            for row in table.rows:
+                                indice_fila += 1
+                                indice_celda = 0
+
+                                for cell in row.cells:
+                                    indice_celda += 1
+
+                                    text_without_newlines = cell.text.replace('\n', ' ').strip()
+                                    if text_without_newlines:
+
+                                        if indice_tabla == 1:
+                                            if indice_celda == 2:
+
+                                                if indice_fila == 2:
+                                                    estudiante_instance.nombre_persona = text_without_newlines
+
+                                                elif indice_fila == 4:
+                                                    estudiante_instance.telefono_persona = text_without_newlines
+
+                                                elif indice_fila == 5:
+                                                    estudiante_instance.correo_persona = text_without_newlines
+
+
+                                        elif indice_tabla == 3:
+                                            if indice_celda == 2:
+
+                                                if indice_fila == 2:
+                                                    name_empresa = text_without_newlines
+
+                                                elif indice_fila == 3:
+
+                                                    try:
+                                                        empresa_instance = Empresa.objects.get(rut_empresa=text_without_newlines)
+
+                                                    except:
+                                                        empresa_instance = Empresa.objects.create(rut_empresa=text_without_newlines)
+
+                                                    try:
+                                                        supervisor_instance = EmpresaPractica.objects.get(rut_empresa=empresa_instance, id_practica=practica_instance)
+                                                        print("tryyyyyyyyyyyyyyyyyyyyyyyyyyyy")
+                                                    except:
+                                                        supervisor_instance = EmpresaPractica.objects.create(rut_empresa=empresa_instance, id_practica=practica_instance)
+                                                        print("excepttttttttttttttttttttttttt")
+
+                                                    empresa_instance.nombre_empresa = name_empresa
+
+                                                elif indice_fila == 6:
+                                                    supervisor_instance.nombre_supervisor = text_without_newlines
+
+                                                elif indice_fila == 5:
+                                                    supervisor_instance.telefono_supervisor = text_without_newlines
+
+                                                elif indice_fila == 8:
+                                                    supervisor_instance.correo_supervisor = text_without_newlines
+
+                                        elif indice_tabla == 9:
+                                            if indice_celda == 2:
+
+                                                if indice_fila == 1:
+                                                    practica_instance.fechaInicio = datetime.strptime(text_without_newlines, "%d/%m/%Y").date()
+
+                                                elif indice_fila == 2:
+                                                    practica_instance.fechaFin = datetime.strptime(text_without_newlines, "%d/%m/%Y").date()
+
+                        estudiante_instance.save()
+                        empresa_instance.save()
+                        supervisor_instance.save()
+                        practica_instance.save()
+
             if (recarga == True) and (vuelta == archivos_instances.count()):
                 fase_practica_instance.cambio_estado(fase_practica_instance)
-                practica_instance.actualizar_estado()
+                practica_instance.estado_actual()
 
                 return redirect('listaPractica', pk=practica_id)
-
-        if fase_practica_instance.conteo <= 0:
-
-            if form_fasePractica.is_valid():
-
-                form_fasePractica.save(commit=False)
-                form_fasePractica.instance.id_practica = practica_instance
-                form_fasePractica.instance.fase = fase_siguiente_instance
-
-                # Inicialización de Conteo (días) según la Fecha que corresponde por Fase
-
-                if fase_siguiente_instance.fase == 1:
-
-                    diferencia = practica_instance.fechaInicio - practica_instance.fechaCreación
-                    dias_diferencia = diferencia.days
-                    form_fasePractica.instance.conteo = dias_diferencia
-
-                elif fase_siguiente_instance.fase == 2:
-
-                    diferencia = practica_instance.fechaFin - practica_instance.fechaInicio
-                    dias_diferencia = diferencia.days
-                    form_fasePractica.instance.conteo = dias_diferencia
-
-                elif fase_siguiente_instance.fase == 2:
-
-                    diferencia = practica_instance.fechaFin - practica_instance.fechaInicio
-                    dias_diferencia = diferencia.days
-                    form_fasePractica.instance.conteo = dias_diferencia
-
-                elif fase_siguiente_instance.fase == 3:
-
-                    dias_diferencia = 15
-                    form_fasePractica.instance.conteo = dias_diferencia
-
-                elif fase_siguiente_instance.fase == 4:
-
-                    fase_siguiente_instance = 30 - fase_practica_instance.conteo
-
-                form_fasePractica.save()
-
-                for doc in Documento.objects.filter(fase=fase_siguiente_instance):
-                    Archivo.objects.create(fase_practica=form_fasePractica.instance, documento=doc.documento)
-
-
-            return redirect('listaPractica', pk=practica_id)
 
 
         return render(request, self.template_name, {'form_practica': form_practica, 'form_fasePractica': form_fasePractica, 'form_archivo': formset, 'archivos_instances':archivos_instances, 'formset': formset,'form_empresa': form_empresa,
