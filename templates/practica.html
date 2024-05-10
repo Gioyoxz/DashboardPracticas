@@ -253,6 +253,13 @@ https://templatemo.com/tm-544-comparto
         </a>
          <span class="tooltip">Panel Específico</span>
       </li>
+      <li>
+       <a href="{% url "kpis" %}">
+         <i class='bx bx-bar-chart-square' ></i>
+         <span class="links_name">Panel KPIs</span>
+       </a>
+       <span class="tooltip">Panel KPIs</span>
+     </li>
      <li>
        <a href="#">
          <i class='bx bx-cog' ></i>
@@ -350,32 +357,31 @@ https://templatemo.com/tm-544-comparto
         </div>
         <section class="tm-mb-1 tm-row tm-services-row" id="services">
             <div class="tm-section-2-l">
-                {% for p in practica %}
-                    <article class="tm-bg-color-6 tm-box-pad tm-mb-1" style="width: 430px; height: 190px; padding: 15px;">
+                    <article class="tm-bg-color-6 tm-box-pad tm-mb-1" style="width: 430px; height: 205px; padding: 15px;">
                         <h2 class="tm-mb-2 text-center" style="font-size: 24px; margin-bottom: 15px;">Estudiante
                             <button type= "button" class="btn-with-icon" data-bs-toggle="modal" data-bs-target="#editEstudiante" style="border: none; outline: none; box-shadow: none">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
                         </h2>
                         <p>
-                            <b>Rut:</b> {{ p.rut_persona.rut_persona }}<br>
-                            <b>Nombre:</b> {{ p.rut_persona.nombre_persona }}<br>
-                            <b>Correo:</b> {{ p.rut_persona.correo_persona }}<br>
-                            <b>Teléfono:</b> {{ p.rut_persona.telefono_persona }}</p>
+                            <b>Rut:</b> {{ estudiante_instance.rut_persona }}<br>
+                            <b>Nombre:</b> {{ estudiante_instance.nombre_persona }}<br>
+                            <b>Carrera:</b> {{ estudiante_instance.carrera }}<br>
+                            <b>Correo:</b> {{ estudiante_instance.correo_persona }}<br>
+                            <b>Teléfono:</b> {{ estudiante_instance.telefono_persona }}</p>
                     </article>
-                    <article class="tm-bg-color-6 tm-box-pad tm-mb-1" style="width: 430px; height: 220px; padding: 15px;">
+                    <article class="tm-bg-color-6 tm-box-pad tm-mb-1" style="width: 430px; height: 205px; padding: 15px;">
                         <h2 class="tm-mb-2 text-center" style="font-size: 24px; margin-bottom: 15px;">Empresa
                             <button type= "button" class="btn-with-icon" data-bs-toggle="modal" data-bs-target="#editEmpresa" style="border: none; outline: none; box-shadow: none">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
                         </h2>
-                {% endfor %}
                     {% for p in practica %}
                         {% if p.empresapractica_set.all %}
                             {% for s in p.empresapractica_set.all %}
                                 <p>
-                                    <b>Rut:</b> {{ s.rut_empresa.rut_empresa}}<br>
                                     <b>Nombre:</b> {{ s.rut_empresa.nombre_empresa }}<br>
+                                    <b>Rubro:</b> {{ s.rut_empresa.get_rubro_empresa_display}}<br>
                                     <b>Supervisor:</b> {{ s.nombre_supervisor }}<br>
                                     <b>Correo:</b> {{ s.correo_supervisor }}<br>
                                     <b>Teléfono:</b> {{ s.telefono_supervisor }}</p>
@@ -596,8 +602,8 @@ https://templatemo.com/tm-544-comparto
                             <h1 class="modal-title fs-5 w-100" style="text-align: center"  id="editArchivoLabel">Finalizar Práctica</h1>
                         {% endif %}
                   </div>
-                  <div class="modal-body" style="text-align: center">
                   {% if archivos_instances %}
+                  <div class="modal-body" style="text-align: left">
                     <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ form_archivo.management_form }}
@@ -614,8 +620,10 @@ https://templatemo.com/tm-544-comparto
                             <button type="submit" class="btn btn-primary">Guardar</button>
                         </div>
                     </form>
+                  </div>
                   {% endif %}
                   {% if cantidad_fase == 5 %}
+                  <div class="modal-body" style="text-align: center">
                       <p>Resultado del informe:</p>
                   <div class="btn-group" role="group" style="padding: 20px; padding-bottom: 50px; padding-top: 30px" aria-label="Cambiar Condición">
                     <form action="{% url 'cambiar_condicion' practica_id '4' %}" style="padding-right: 20px" method="post">
@@ -628,8 +636,8 @@ https://templatemo.com/tm-544-comparto
                         <button type="submit" class="btn btn-primary">Aprobado</button>
                     </form>
                   </div>
-                  {% endif %}
                 </div>
+                {% endif %}
               </div>
             </div>
         </div>

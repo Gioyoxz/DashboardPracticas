@@ -10,7 +10,7 @@ class EstudianteForm(forms.ModelForm):
 class PracticaForm(forms.ModelForm):
     class Meta:
         model = Practica
-        fields = ['fechaInicio', 'fechaFin', 'horas']
+        fields = ['fechaInicio', 'fechaFin', 'modalidad']
 
 class FasePracticaForm(forms.ModelForm):
     class Meta:
@@ -65,6 +65,35 @@ class CrearPracticaForm(forms.ModelForm):
     class Meta:
         model = Usuario
         fields = ['rut_persona']
+
+class RubroForm(forms.Form):
+        rubros = (("0", "Rubro"),
+              ("1", "Agropecuaria-Silvícola"),
+              ("2", "Construcción"),
+              ("3", "Pesca"),
+              ("4", "Trasportes y Comunicaciones"),
+              ("5", "Industria Manufactura"),
+              ("6", "Electricidad, Gas y Agua"),
+              ("7", "Administración Pública"),
+              ("8", "Comercio, restaurantes y hoteles"),
+              ("9", "Servicios Personales"),
+              ("10", "Minería"),
+              ("11", "Servicios Financieros y Empresariales"),
+              ("12", "Propiedad de Vivienda"),
+              ("13", "Otros"))
+        rubro = forms.ChoiceField(choices=rubros, required=False, label="", initial=['0'], )
+
+
+class ModalidadForm(forms.Form):
+    modalidades = (("0", "Modalidad"),("1", "Presencial"), ("2", "Híbrido"), ("3", "Remoto"))
+    modalidad = forms.ChoiceField(choices=modalidades, required=False, label="", initial=['0'], )
+
+class SectorForm(forms.Form):
+    sectores = (("0", "Sector"),("1", "Pública"), ("2", "Privada"))
+    sector = forms.ChoiceField(choices=sectores, required=False, label="", initial=['0'], )
+class TamanoForm(forms.Form):
+    tamanos = (("0", "Tamaño"),("1", "Micro"),("2", "Pequeña"), ("3", "Mediana"), ("4", "Grande"))
+    tamano = forms.ChoiceField(choices=tamanos, required=False, label="", initial=['0'], )
 
 #class BuscadorFOrm(forms.Form):
 

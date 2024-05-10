@@ -41,7 +41,7 @@ class Usuario(Persona):
     carrera = models.ForeignKey(Carrera, on_delete=models.SET_NULL, null=True)
 
     def Usuario(self):
-        return "{} | {}".format(self.rut_persona, self.contrasena)
+        return "{} | {} | {}".format(self.rut_persona, self.contrasena, self.carrera)
 
     def __str__(self):
         return self.Usuario()
@@ -51,10 +51,27 @@ class Empresa(models.Model):
     rut_empresa = models.CharField('Rut', max_length=12, null=False, blank=False, primary_key=True,
                                    help_text='(Sin puntos ni guión)')
     nombre_empresa = models.CharField('Nombre', max_length=50, null=False, blank=False)
-    rubro_empresa = models.CharField('Rubro', max_length=50, null=False, blank=False)
+    rubros = (("1", "Agropecuaria-Silvícola"),
+              ("2", "Construcción"),
+              ("3", "Pesca"),
+              ("4", "Trasportes y Comunicaciones"),
+              ("5", "Industria Manufactura"),
+              ("6", "Electricidad, Gas y Agua"),
+              ("7", "Administración Pública"),
+              ("8", "Comercio, restaurantes y hoteles"),
+              ("9", "Servicios Personales"),
+              ("10", "Minería"),
+              ("11", "Servicios Financieros y Empresariales"),
+              ("12", "Propiedad de Vivienda"),
+              ("13", "Otros"))
+    tamanos = (("1", "Micro"), ("2", "Pequeña"), ("3", "Mediana"), ("4","Grande"))
+    tamano = models.CharField("Tamaño", default='1', choices=tamanos)
+    sectores = (("1", "Pública"), ("2", "Privada"))
+    sector = models.CharField("Sector", default='1', choices=sectores)
+    rubro_empresa = models.CharField('Rubro', max_length=50, null=False, blank=False, choices=rubros, default="10")
 
     def Empresa(self):
-        return "{} | {} | {}".format(self.rut_empresa, self.nombre_empresa, self.rubro_empresa)
+        return "{} | {} | {} | {} | {}".format(self.rut_empresa, self.nombre_empresa, self.get_rubro_empresa_display(), self.get_tamano_display(), self.get_sector_display())
 
     def __str__(self):
         return self.Empresa()
@@ -89,8 +106,10 @@ class Practica(models.Model):
     fechaCreación = models.DateField('Fecha de Creación', max_length=50, null=True, blank=False)
     fechaInicio = models.DateField('Fecha de Inicio', max_length=50, null=True, blank=False)
     fechaFin = models.DateField('Fecha de Fin', max_length=30, null=True, blank=False)
+    modalidades = (("1", "Presencial"), ("2", "Híbrido"), ("3", "Remoto"))
+    modalidad = models.CharField("Modalidad", default='1', choices=modalidades)
     condiciones = (("1", "Cursando"), ("2", "Cancelado"), ("3", "Aprobado"), ("4", "Rechazado"))
-    condicion = models.CharField("Condicion", default='1', choices=condiciones)
+    condicion = models.CharField("Condición", default='1', choices=condiciones)
     estados = (("1", "Pendiente"), ("2", "Completado"), ("3", "Vencido"))
     estado_practica = models.CharField("Estado", default='2', choices=estados)
     conteo_practica = models.IntegerField('Conteo', null=True)
@@ -118,7 +137,7 @@ class Practica(models.Model):
             self.save()
 
     def Practica(self):
-        return "{} | {} | {} | {} | {}".format(self.fechaInicio, self.fechaFin, self.get_condicion_display(), self.horas, self.observacion)
+        return "{} | {} | {} | {} | {}".format(self.fechaInicio, self.fechaFin, self.get_condicion_display(), self.get_modalidad_display(), self.observacion)
 
     def __str__(self):
         return self.Practica()
@@ -185,6 +204,11 @@ class FasePractica(models.Model):
             diferencia = hoy - practica_instance.fechaFin
             self.conteo = 30 - diferencia.days
 
+        elif self.fase.fase == '5':
+
+            diferencia = hoy - practica_instance.fechaFin
+            self.conteo = 60 - diferencia.days
+
         self.save()
 
         # Verificar si ha pasado un día desde la última actualización
@@ -226,7 +250,7 @@ class FasePractica(models.Model):
             self.estado = "2"
             self.save()
 
-            if (supervisor_instancia != None) and ((relleno_estudiante == True) and ( relleno_practica == True)):
+            if (supervisor_instancia != None) and ((relleno_estudiante == True) and ( relleno_practica == True)) and self.fase.fase != "5":
 
                 print("supervisor_instancia != None")
 
@@ -256,7 +280,7 @@ class FasePractica(models.Model):
 
         if self.conteo <= 0:
 
-            if self.estado == '1':
+            if self.estado == '1' and self.fase.fase != "5":
 
                 if (supervisor_instancia != None) and ((relleno_estudiante == True) and (relleno_practica == True)):
 
@@ -290,7 +314,7 @@ class FasePractica(models.Model):
             if self.estado == '2':
                 self.estado = '1'
 
-            if self.estado == '3':
+            if self.estado == '3' and self.fase.fase != "5":
                 siguiente_num = str(int(self.fase.fase) + 1)
                 siguiente_fase = Fase.objects.get(fase=siguiente_num)
 

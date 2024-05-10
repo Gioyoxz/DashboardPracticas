@@ -26,9 +26,16 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/modules/variable-pie.js"></script>
+
+
+
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <title>Panel General</title>
+
+
+
+    <title>Panel KPIs</title>
     <style> .tm-bg-color-4 { background-color: #23415b; }
             .tm-text-white {text-align: center; font-size: 32px}
     </style>
@@ -42,6 +49,8 @@ https://templatemo.com/tm-544-comparto
 -->
 </head>
 
+
+
 <body>
 <div class="sidebar">
     <div class="logo-details">
@@ -50,9 +59,9 @@ https://templatemo.com/tm-544-comparto
     </div>
     <ul class="nav-list">
      <li>
-       <a href="#" style="background-color: white">
-         <i class='bx bx-pie-chart-alt-2' style="color: #333333"></i>
-         <span class="links_name" style="color: #333333">Panel General</span>
+       <a href="{% url "index" %}">
+         <i class='bx bx-pie-chart-alt-2'></i>
+         <span class="links_name">Panel General</span>
        </a>
        <span class="tooltip">Panel General</span>
      </li>
@@ -64,9 +73,9 @@ https://templatemo.com/tm-544-comparto
          <span class="tooltip">Panel Específico</span>
       </li>
       <li>
-       <a href="{% url "kpis" %}">
-         <i class='bx bx-bar-chart-square' ></i>
-         <span class="links_name">Panel KPIs</span>
+       <a href="#" style="background-color: white">
+         <i class='bx bx-bar-chart-square' style="color: #333333"></i>
+         <span class="links_name" style="color: #333333">Panel KPIs</span>
        </a>
        <span class="tooltip">Panel KPIs</span>
      </li>
@@ -93,13 +102,19 @@ https://templatemo.com/tm-544-comparto
     <div class="container-fluid">
     <div class="row d-flex justify-content-center" style="padding-top: 5px;">
 
-        <div id="containerPie" class="col-lg-3 mx-2" style="height: 235px;"></div>
-        <div id="containerBar" class="col-lg-5 mx-2"></div>
-        <div id="containerEstados" class="col-lg-3 mx-2" style="height: 235px;"></div>
+        <div class="col-lg-3 mx-4" style="height: 500px;">
+            <div id="containerPie" style="height: 270px;"></div>
+            <div id="containerPolar" style="height: 230px;"></div>
+        </div>
+        <div class="col-lg-4 mx-2" style="height: 500px;">
+            <div id="containerLines" style="height: 270px;"></div>
+            <div id="containerDobleBarras" style="height: 250px;"></div>
+        </div>
+        <div id="containerRubros" class="col-lg-4 mx-2" style="height: 520px;"></div>
 
     </div>
 </div>
-        <script type="application/javascript">
+          <script type="application/javascript">
             (function (H) {
                 H.seriesTypes.pie.prototype.animate = function (init) {
                     const series = this,
@@ -234,145 +249,293 @@ https://templatemo.com/tm-544-comparto
         });
         </script>
         <script type="application/javascript">
-            Highcharts.chart('containerBar', {
-                chart: {
-                    type: 'column',
-                    height: 300,
-                    weight: 100
-                },
-                title: {
-                    text: 'Fases',
-                    align: 'center'
-                },
-                subtitle: {
-                    text: '',
-                    align: 'center'
-                },
-                credits: {
-                    enabled: false
-                },
-                xAxis: {
-                    categories: ['<div style="text-align:center;"><i class="fa-solid fa-clipboard-list fa-lg color-icon" style="display:block; color: #23415b; font-size: 1.8em; padding-bottom: 0.5em; padding-top: 0.2em;"></i>Inscripción</div>',
-                                '<div style="text-align:center;"><i class="fa-solid fa-briefcase fa-lg color-icon" style="display:block; color: #23415b; font-size: 1.8em; padding-bottom: 0.5em; padding-top: 0.2em;"></i>Inicio</div>',
-                                '<div style="text-align:center;"><i class="fa-solid fa-flag fa-lg color-icon" style="display:block; color: #23415b; font-size: 1.8em; padding-bottom: 0.5em; padding-top: 0.2em;"></i>Término</div>',
-                                '<div style="text-align:center;"><i class="fa-solid fa-newspaper fa-lg color-icon" style="display:block; color: #23415b; font-size: 1.8em; padding-bottom: 0.5em; padding-top: 0.2em;"></i>Informe</div>',
-                                '<div style="text-align:center;"><i class="fa-solid fa-eye fa-lg color-icon" style="display:block; color: #23415b; font-size: 1.8em; padding-bottom: 0.5em; padding-top: 0.2em;"></i>Evaluación</div>'],
-                    crosshair: true,
-                    accessibility: {
-                        description: 'Countries'
-                    },
-                    labels: {
-                        useHTML: true,
-                    }
-                },
-                yAxis: {
-                    labels: {
-                        enabled: false
-                    },
-                    min: 0,
-                    title: {
-                        text: ''
-                    }
-                },
-                tooltip: {
-                    valueSuffix: ''
-                },
-                plotOptions: {
-                    column: {
-                        pointPadding: 0.25,
-                        borderWidth: 0,
-                    }
-                },
-                series: [
-                    {
-                        name: '',
-                        showInLegend: false,
-                        color: '#23415b',
-                        data: [{{ barra_fase1 }}, {{ barra_fase2 }}, {{ barra_fase3 }}, {{ barra_fase4 }}, {{ barra_fase5 }}],
-                        dataLabels: {
-                            enabled: true,
-                            style: {
-                                fontSize: '14px'
-                            }
-                        },
+                    Highcharts.chart('containerPolar', {
 
+            chart: {
+                polar: true,
+            },
+
+            title: {
+                text: 'Modalidad'
+            },
+
+            pane: {
+                startAngle: 0,
+                endAngle: 360
+            },
+
+            xAxis: {
+                tickInterval: 120,
+                min: 0,
+                max: 360,
+                lineColor: '#CCCCCC',
+                labels: {
+                    formatter: function () {
+                        if (this.value === 0) {
+                            return 'Híbrido';
+                        } else if (this.value === 120) {
+                            return 'Remoto';
+                        } else if (this.value === 240) {
+                            return 'Presencial';
+                        } else {
+                            return '';
+                        }
+                    }
+                }
+            },
+
+            yAxis: {
+                min: 0
+            },
+            credits: {
+                    enabled: false
+            },
+
+            plotOptions: {
+                series: {
+                    pointStart: 0,
+                    pointInterval: 120
+                },
+                column: {
+                    pointPadding: 0,
+                    groupPadding: 0
+                },
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                type: 'area',
+                name: '',
+                color: '#00C2AB',
+                data: [4, 3, 7]
+            }]
+        });
+        </script>
+        <script type="application/javascript">
+            Highcharts.chart('containerLines', {
+            title: {
+                text: 'Resultados',
+                align: 'center'
+            },
+
+            xAxis: {
+                accessibility: {
+                    rangeDescription: ''
+                }
+            },
+            yAxis: {
+                title: {
+                    enabled: false
+                }
+            },
+
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+
+            plotOptions: {
+                series: {
+                    label: {
+                        connectorAllowed: false
                     },
-                ]
-            });
+                    pointStart: 2010
+                }
+            },
+
+            credits: {
+                    enabled: false
+            },
+
+            series: [{
+                name: 'Aprobadas',
+                color: 'green',
+                data: [43934, 48656, 65165, 81827, 112143, 142383,
+                    171533, 165174, 155157, 161454, 154610]
+            }, {
+                name: 'Reprobadas',
+                color: 'red',
+                data: [24916, 37941, 29742, 29851, 32490, 30282,
+                    38121, 36885, 33726, 34243, 31050]
+            }, {
+                name: 'Canceladas',
+                color: 'orange',
+                data: [11744, 30000, 16005, 19771, 20185, 24377,
+                    32147, 30912, 29243, 29213, 25663]
+            }],
+            legend: {
+                enabled: false
+            },
+
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+
+        });
         </script>
         <style>
             .highcharts-navigator {
                 display: none !important;
             }
         </style>
-        <script type="application/javascript">
-            Highcharts.chart('containerEstados', {
-                chart: {
-                    type: 'bar',
-                    navigator: {
-                        enabled: false
-                    }
-                },
+          <script type="application/javascript">
+            Highcharts.chart('containerDobleBarras', {
+
+            chart: {
+                type: 'column'
+            },
+
+            title: {
+                text: 'Tamaño y Sector',
+                align: 'center'
+            },
+
+            xAxis: {
+                categories: ['Micro', 'Pequeña', 'Mediana', 'Grande']
+            },
+
+            yAxis: {
+                allowDecimals: false,
+                min: 0,
                 title: {
-                    text: 'Estados',
-                    align: 'center'
-                },
-                showInLegend: false,
-                xAxis: {
-                    categories: [''],
-                    title: {
-                        text: null
-                    },
-                    gridLineWidth: 1,
-                    lineWidth: 1
-                },
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: '',
-                        align: 'high'
-                    },
-                    labels: {
-                        overflow: 'justify',
-                        enabled: false
-                    },
-                    gridLineWidth: 0
-                },
-                tooltip: {
-                    valueSuffix: ''
-                },
-                plotOptions: {
-                    bar: {
-                        borderRadius: '50%',
-                        dataLabels: {
-                            enabled: true,
-                            style: {
-                                fontSize: '14px'
-                            }
-                        },
-                        groupPadding: 0.1
+                    enabled: false
+                }
+            },
+
+            tooltip: {
+                format: '<b>{key}</b><br/>{series.name}: {y}<br/>' +
+                    'Total: {point.stackTotal}'
+            },
+            legend: {
+                enabled: false
+            },
+
+            plotOptions: {
+                column: {
+                    stacking: 'normal'
+                }
+            },
+            credits: {
+                    enabled: false
+            },
+
+            series: [{
+                name: 'Pública',
+                color: '#C2004C',
+                data: [148, 133, 124, 70],
+            }, {
+                name: 'Privada',
+                color: '#0082C2',
+                data: [102, 98, 65, 50],
+            },
+            ]
+        });
+        </script>
+        <script type="application/javascript">
+        Highcharts.chart('containerRubros', {
+            colors: ['#5800C2'],
+            chart: {
+                type: 'column',
+                inverted: true,
+                polar: false
+            },
+            title: {
+                text: 'Rubros',
+                align: 'center'
+            },
+            tooltip: {
+                outside: true
+            },
+            pane: {
+                size: '85%',
+                innerSize: '20%',
+                endAngle: 270
+            },
+            xAxis: {
+                tickInterval: 1,
+                labels: {
+                    align: 'center',
+                    useHTML: true,
+                    allowOverlap: true,
+                    step: 1,
+                    y: 3,
+                    style: {
+                        fontSize: '13px'
                     }
                 },
-                legend: {
-                    enabled:false,
-                },
-                credits: {
+                lineWidth: 0,
+                gridLineWidth: 0,
+                categories: [
+                    'Agropecuaria-Silvícola <span class="f16"><span id="flag" class="flag no">' +
+                    '</span></span>',
+                    'Construcción <span class="f16"><span id="flag" class="flag us">' +
+                    '</span></span>',
+                    'Pesca <span class="f16"><span id="flag" class="flag de">' +
+                    '</span></span>',
+                    'Trasportes y Comunicaciones  <span class="f16"><span id="flag" class="flag at">' +
+                                '</span></span>',
+                    'Industria Manufactura <span class="f16"><span id="flag" class="flag at">' +
+                                '</span></span>',
+                    'Electricidad, Gas y Agua <span class="f16"><span id="flag" class="flag at">' +
+                                '</span></span>',
+                    'Administración Pública <span class="f16"><span id="flag" class="flag at">' +
+                                '</span></span>',
+                    'Comercio, restaurantes y hoteles <span class="f16"><span id="flag" class="flag at">' +
+                                '</span></span>',
+                    'Servicios Personales <span class="f16"><span id="flag" class="flag at">' +
+                                '</span></span>',
+                    'Minería <span class="f16"><span id="flag" class="flag at">' +
+                                '</span></span>',
+                    'Servicios Financieros y Empresariales <span class="f16"><span id="flag" class="flag at">' +
+
+                    '</span></span>',
+                    'Propiedad de Vivienda <span class="f16"><span id="flag" class="flag ca">' +
+                    '</span></span>'
+                ]
+            },
+            yAxis: {
+                lineWidth: 0,
+                tickInterval: 25,
+                reversedStacks: false,
+                endOnTick: true,
+                showLastLabel: true,
+                gridLineWidth: 0,
+                title: {
                     enabled: false
-                },
-                series: [{
-                    name: 'Vencidos',
-                    data: [{{ barra_vencido }}],
-                    color: '#FE5442'
-                }, {
-                    name: 'Pendienes',
-                    data: [{{ barra_pendiente }}],
-                    color: '#FFAA52'
-                }, {
-                    name: 'Completados',
-                    data: [{{ barra_completado }}],
-                    color: '#00C281'
-                }]
-            });
+                }
+
+            },
+            credits: {
+                    enabled: false
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'normal',
+                    borderWidth: 0,
+                    pointPadding: 0,
+                    groupPadding: 0.15,
+                    borderRadius: '50%'
+                }
+            },
+            series: [{
+                name: '',
+                showInLegend: false,
+                data: [148, 113, 104, 71, 77, 33,54,21,24,65,23,11]
+            },]
+        });
         </script>
         <div class="estudiante">
                 <div class="container" style="border-radius: 80px; padding-top: 8px">
@@ -380,32 +543,18 @@ https://templatemo.com/tm-544-comparto
                         <tr>
                             <form method="post" enctype="multipart/form-data">
                                 {% csrf_token %}
-                                <th scope="col" style="color: white"><b>||</b></th>
-                                <th scope="col">
-                                    <button type= "button" class="btn-with-icon" data-bs-toggle="modal" data-bs-target="#crearPractica" style="border: none; outline: none; box-shadow: none; background-color:#f5f5f5">
-                                        <i class="fa-solid fa-folder-plus fa-2x"></i>
-                                    </button>
-                                </th>
-                                <th scope="col" style="color: white"><b>|</b></th>
-                                <th scope="col">
-                                    <button type= "button" class="btn-with-icon" data-bs-toggle="modal" data-bs-target="#importarData" style="border: none; outline: none; box-shadow: none; background-color:#f5f5f5">
-                                        <i class="fa-solid fa-database fa-2x"></i>
-                                    </button>
-                                </th>
-                                <th scope="col" style="color: white"><b>|||||||||</b></th>
                                 <th scope="col"> {{ form_buscador.as_p }}</th>
                                 <th scope="col">
                                     <button type= "submit" style="display: inline; border: none; outline: none; box-shadow: none; background-color:white">
                                         <i class="fa-solid fa-magnifying-glass fa-lg"></i>
                                     </button>
                                 </th>
-                                <th scope="col" style="color: white"><b>||||||||||||||||||||||</b></th>
+                                <th scope="col" style="color: white"><b>||||||</b></th>
                                 <th scope="col"><b>{{ form_carrera.as_p }}</b></th>
-                                <th scope="col" style="color: white"><b>|</b></th>
-                                <th scope="col"><b>{{ form_fase.as_p }}</b></th>
-                                <th scope="col" style="color: white"><b>|</b></th>
-                                <th scope="col"><b>{{ form_estado.as_p }}</b></th>
-                                <th scope="col" style="color: white"><b>|</b></th>
+                                <th scope="col"><b>{{ form_modalidad.as_p }}</b></th>
+                                <th scope="col"><b>{{ form_sector.as_p }}</b></th>
+                                <th scope="col"><b>{{ form_tamano.as_p }}</b></th>
+                                <th scope="col"><b>{{ form_rubro.as_p }}</b></th>
                                 <th scope="col">
                                     <button type= "submit" style="border: none; outline: none; box-shadow: none; background-color:white">
                                     <i class="fa-solid fa-filter fa-lg"></i>
@@ -422,10 +571,7 @@ https://templatemo.com/tm-544-comparto
                             <th scope="col">RUT</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Carrera</th>
-                            <th scope="col">Fase</th>
-                            <th scope="col">Estado</th>
-                            <th scope="col">Plazo</th>
-                            <th scope="col"></th>
+                            <th scope="col">Modalidad</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -435,20 +581,9 @@ https://templatemo.com/tm-544-comparto
                                 <td>{{ a.rut_persona.rut_persona }}</td>
                                 <td>{{ a.rut_persona.nombre_persona }}</td>
                                 <td>{{ a.rut_persona.usuario.carrera }}</td>
-                            {% with last_relacion=a.fasepractica_set.last %}
-                                {% if last_relacion %}
-                                <td>{{ last_relacion.fase }}</td>
-                                    {% if last_relacion.estado == "1"%}
-                                        <td><span class="circuloRojo"></span></td>
-                                    {% elif last_relacion.estado == "2"%}
-                                        <td><span class="circuloAmarillo"></span></td>
-                                    {% elif last_relacion.estado == "3"%}
-                                        <td><span class="circuloVerde"></span></td>
-                                    {% endif %}
-                                <td>{{ last_relacion.conteo }} días</td>
+                                <td>{{ a.get_modalidad_display }}</td>
+
                                     <td><a href="{% url "listaPractica" a.id_practica %}" class="btn btn-outline-primary">Ver</a></td>
-                                {% endif %}
-                            {% endwith %}
                             </tr>
                         {% endfor %}
                       </tbody>
